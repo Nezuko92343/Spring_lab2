@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uk">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Адмін панель</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
+
+  <body>
+    <header class="header">
+      <h1>Адмін панель</h1>
+      <nav><a href="/" class="btn-2">Головна</a></nav>
+    </header>
+
+    <div class="add-book-container">
+      <h2>Додати книгу</h2>
+      <form action="/admin/add" method="post">
+        <input name="title" placeholder="Назва книги" required />
+        <input name="author" placeholder="Автор" required />
+        <input name="keywords" placeholder="Ключові слова" />
+        <input name="imagePath" placeholder="Зображення або URL" />
+        <button type="submit">Додати</button>
+      </form>
+    </div>
+
+    <div class="whole-books">
+      <h3>Усі книги 📚</h3>
+    </div>
+    <div class="books-list">
+      <div th:each="book : ${books}" class="book-row">
+        <div class="book-info">
+          <img
+            th:src="@{${book.imagePath}}"
+            th:alt="${book.title}"
+            class="book-thumb"
+          />
+          <div>
+            <span th:text="${book.title}">Назва книги</span> —
+            <span th:text="${book.author}">Автор</span>
+            <p th:text="${book.keywords}">Ключові слова</p>
+          </div>
+        </div>
+
+        <div class="book-actions">
+          <button
+            class="edit-btn"
+            type="button"
+            th:data-title="${book.title}"
+            th:data-author="${book.author}"
+            th:data-keywords="${book.keywords}"
+            th:data-image="${book.imagePath}"
+          >
+            Редагувати ✏️
+          </button>
+
+          <form th:action="@{/admin/delete}" method="post">
+            <input type="hidden" name="title" th:value="${book.title}" />
+            <input type="hidden" name="author" th:value="${book.author}" />
+            <button type="submit" class="delete-btn">Видалити 🗑️</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Редагувати книгу</h2>
+        <form
+          id="editForm"
+          method="post"
+          th:action="@{/admin/edit}"
+          enctype="multipart/form-data"
+        >
+          <input type="hidden" name="oldTitle" id="oldTitle" />
+          <input type="hidden" name="oldAuthor" id="oldAuthor" />
+
+          <input
+            type="text"
+            name="title"
+            id="bookTitle"
+            placeholder="Назва книги"
+            required
+          />
+          <input
+            type="text"
+            name="author"
+            id="bookAuthor"
+            placeholder="Автор"
+            required
+          />
+          <input
+            type="text"
+            name="keywords"
+            id="bookKeywords"
+            placeholder="Ключові слова"
+          />
+          <input
+            type="text"
+            name="imagePath"
+            id="bookImagePath"
+            placeholder="URL або шлях до зображення"
+          />
+          <input type="file" name="file" />
+          <button type="submit">💾 Зберегти</button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      const modal = document.getElementById("editModal");
+      const closeBtn = modal.querySelector(".close");
+
+      document.querySelectorAll(".edit-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          modal.style.display = "flex";
+          document.getElementById("oldTitle").value = btn.dataset.title;
+          document.getElementById("oldAuthor").value = btn.dataset.author;
+          document.getElementById("bookTitle").value = btn.dataset.title;
+          document.getElementById("bookAuthor").value = btn.dataset.author;
+          document.getElementById("bookKeywords").value = btn.dataset.keywords;
+          document.getElementById("bookImagePath").value = btn.dataset.image;
+        });
+      });
+
+      closeBtn.onclick = () => (modal.style.display = "none");
+      window.onclick = (e) => {
+        if (e.target === modal) modal.style.display = "none";
+      };
+    </script>
+  </body>
+</html>

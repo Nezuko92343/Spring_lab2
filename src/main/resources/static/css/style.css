@@ -1,0 +1,567 @@
+body {
+  font-family: "Quicksand", sans-serif;
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(
+    135deg,
+    /* напрямок градієнта */ #431677,
+    /* темний фіолетовий */ #6a3ab7,
+    /* світліший фіолетовий */ #9b65e0 /* ще світліший для м’якого переходу */
+  );
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background: #9370db;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.header h1 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+/* === Навігація === */
+.header nav {
+  display: flex;
+  gap: 15px;
+}
+
+.header nav a {
+  text-decoration: none;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 12px 25px;
+  border-radius: 10px;
+  transition: 0.5s;
+  color: white;
+  background-size: 200% auto;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+/* === Градієнти як у твоєму прикладі === */
+.header nav a.btn-1 {
+  background-image: linear-gradient(
+    to right,
+    #f6d365 0%,
+    #fda085 51%,
+    #f6d365 100%
+  );
+}
+.header nav a.btn-2 {
+  background-image: linear-gradient(
+    to right,
+    #84fab0 0%,
+    #8fd3f4 51%,
+    #84fab0 100%
+  );
+}
+.header nav a.btn-3 {
+  background-image: linear-gradient(
+    to right,
+    #a1c4fd 0%,
+    #c2e9fb 51%,
+    #a1c4fd 100%
+  );
+}
+
+/* Ефект при наведенні */
+.header nav a:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}
+
+.menu-container {
+  max-width: 550px; /* Максимальна ширина блоку */
+  margin: 80px auto; /* Відступи зверху/знизу і центрування по горизонталі */
+  background: rgba(255, 255, 255, 0.9); /* Напівпрозорий білий фон */
+  border-radius: 25px; /* Закруглені кути */
+  padding: 40px 50px; /* Внутрішні відступи */
+  box-shadow: 0 8px 25px rgba(255, 170, 140, 0.3); /* М’яка тінь */
+  text-align: center; /* Вирівнювання тексту по центру */
+  backdrop-filter: blur(8px); /* Ефект розмиття фону позаду */
+  animation: fadeIn 1s ease; /* Анімація появи при завантаженні */
+  z-index: 100;
+}
+
+.menu-container h2 {
+  font-size: 2em; /* Розмір заголовка */
+  margin-bottom: 25px; /* Відступ знизу */
+  color: #444; /* Темно-сірий колір тексту */
+}
+
+form {
+  display: flex; /* Розміщення елементів у рядок */
+
+  margin-bottom: 15px; /* Відступ між формами */
+  background: #fff; /* Білий фон форми */
+  border-radius: 40px; /* Округлені краї */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Легка тінь для об’єму */
+  overflow: hidden; /* Ховає все, що виходить за межі форми */
+  transition: 0.3s; /* Плавна зміна при наведенні */
+}
+
+form:hover {
+  transform: scale(1.03); /* Невелике збільшення при наведенні */
+}
+
+input {
+  flex: 1; /* Займає всю доступну ширину в контейнері */
+  border: none; /* Без рамки */
+  padding: 14px 18px; /* Внутрішній відступ */
+  border-radius: 40px 0 0 40px; /* Округлення лише зліва */
+  outline: none; /* Вимикає синю рамку при фокусі */
+  font-size: 1em; /* Розмір тексту */
+}
+
+button {
+  background: linear-gradient(
+    to right,
+    #f6d365,
+    #fda085
+  ); /* Градієнт з жовтого в рожевий */
+  border: none; /* Без рамки */
+  color: white; /* Білий текст */
+  padding: 12px 25px; /* Внутрішні відступи */
+  border-radius: 0 40px 40px 0; /* Округлення лише справа */
+  cursor: pointer; /* Курсор-рука при наведенні */
+  font-weight: 600; /* Напівжирний текст */
+  transition: 0.5s; /* Плавна зміна фону при наведенні */
+}
+
+button:hover {
+  background-position: right center; /* Анімаційне пересування градієнта */
+}
+
+/* Основний блок-картка */
+.card {
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  margin: 0 20px 20px 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #0078d7;
+  text-align: center;
+}
+
+.books-container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.book-item {
+  background-color: #f4faff;
+  border-radius: 12px;
+  padding: 10px;
+  width: 200px;
+  min-height: 360px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.book-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.book-item img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.book-item p {
+  margin: 0 0 5px 0;
+  font-weight: 600;
+  color: #333;
+}
+
+.ui-sticker {
+  display: grid;
+  grid-template-columns: auto 18px; /* місце для тексту та іконки */
+  grid-column-gap: 6px;
+  grid-row-gap: 0;
+  padding: 8px 10px 8px 20px; /* внутрішні відступи */
+  margin: 0;
+  box-sizing: border-box;
+
+  background-color: #30134f; /* яскравий фон */
+  color: #fff; /* колір тексту */
+
+  font-family: "Mabry Pro", sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1;
+  text-decoration: none;
+
+  border: none;
+  outline: none !important;
+
+  width: auto;
+  height: auto;
+  max-width: max-content;
+
+  border-radius: 0 100px 100px 0; /* закруглення правого краю */
+  box-shadow: none;
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.ui-sticker:hover {
+  transform: translateX(2px); /* легке відсування при наведенні */
+  background-color: #e600b3; /* темніший відтінок при hover */
+}
+
+.clear {
+  clear: both;
+}
+img {
+  max-width: 100%;
+  border: 0px;
+}
+ul,
+ol {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+}
+a:focus,
+a:active,
+a:visited,
+a:hover {
+  text-decoration: none;
+  outline: none;
+}
+a:hover {
+  color: #e73700;
+}
+
+h3 {
+  margin: 0 0 10px;
+  font-size: 28px;
+  line-height: 36px;
+}
+button {
+  outline: none !important;
+}
+
+.line-title {
+  position: relative;
+  width: 400px;
+}
+.line-title::before,
+.line-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  border-radius: 2px;
+}
+.line-title::before {
+  width: 100%;
+  background: #f2f2f2;
+}
+.line-title::after {
+  width: 32px;
+  background: #e73700;
+}
+
+.search-container {
+  display: flex;
+  gap: 50px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  margin: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.add-book-container {
+  max-width: 550px;
+  margin: 80px auto;
+  background: linear-gradient(135deg, #431677, #6a3ab7, #9b65e0);
+  border-radius: 25px;
+  padding: 40px 50px;
+  box-shadow: 0 8px 25px rgba(67, 22, 119, 0.5);
+  text-align: center;
+  color: white;
+  font-family: "Quicksand", sans-serif;
+  backdrop-filter: blur(8px);
+  animation: fadeIn 1s ease;
+}
+
+.add-book-container h2 {
+  font-size: 2em;
+  margin-bottom: 25px;
+}
+
+.add-book-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+  transition: 0.3s;
+}
+
+.add-book-container form:hover {
+  transform: scale(1.02);
+}
+
+.add-book-container input {
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+}
+
+.add-book-container input::placeholder {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.add-book-container button {
+  background: linear-gradient(to right, #f6d365, #fda085);
+  border: none;
+  color: white;
+  padding: 12px 25px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.5s;
+}
+
+.add-book-container button:hover {
+  background-position: right center;
+  transform: scale(1.05);
+}
+
+.books-list {
+  max-width: 700px;
+  margin: 20px auto;
+}
+
+.book-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 12px 20px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.book-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.book-thumb {
+  width: 50px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+.edit-btn {
+  background: linear-gradient(to right, #84fab0, #8fd3f4);
+  border: none;
+  padding: 8px 18px;
+  border-radius: 12px;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.book-actions {
+  display: flex;
+  flex-direction: column; /* встопчик */
+  gap: 10px; /* відстань між кнопками */
+  margin-top: 10px;
+}
+
+.edit-btn,
+.delete-btn {
+  width: 120px; /* можна підкоригувати */
+}
+
+.edit-btn:hover {
+  transform: scale(1.1);
+}
+
+/* Модальне тло */
+.modal {
+  display: none; /* сховане за замовчуванням */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.5); /* напівпрозорий фон */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal form {
+  display: flex; /* Ð Ð¾Ð·Ð¼Ñ–Ñ‰ÐµÐ½Ð½Ñ ÐµÐ»ÐµÐ¼ÐµÐ½Ñ‚Ñ–Ð² Ñƒ Ñ€ÑÐ´Ð¾Ðº */
+  margin-bottom: 15px; /* Ð’Ñ–Ð´ÑÑ‚ÑƒÐ¿ Ð¼Ñ–Ð¶ Ñ„Ð¾Ñ€Ð¼Ð°Ð¼Ð¸ */
+  background: #fff; /* Ð‘Ñ–Ð»Ð¸Ð¹ Ñ„Ð¾Ð½ Ñ„Ð¾Ñ€Ð¼Ð¸ */
+  border-radius: 40px; /* ÐžÐºÑ€ÑƒÐ³Ð»ÐµÐ½Ñ– ÐºÑ€Ð°Ñ— */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1); /* Ð›ÐµÐ³ÐºÐ° Ñ‚Ñ–Ð½ÑŒ Ð´Ð»Ñ Ð¾Ð±â€™Ñ”Ð¼Ñƒ */
+  overflow: hidden; /* Ð¥Ð¾Ð²Ð°Ñ” Ð²ÑÐµ, Ñ‰Ð¾ Ð²Ð¸Ñ…Ð¾Ð´Ð¸Ñ‚ÑŒ Ð·Ð° Ð¼ÐµÐ¶Ñ– Ñ„Ð¾Ñ€Ð¼Ð¸ */
+  transition: 0.3s; /* ÐŸÐ»Ð°Ð²Ð½Ð° Ð·Ð¼Ñ–Ð½Ð° Ð¿Ñ€Ð¸ Ð½Ð°Ð²ÐµÐ´ÐµÐ½Ð½Ñ– */
+  display: flex;
+  flex-direction: column;
+}
+
+.modal button {
+  background: linear-gradient(
+    to right,
+    #f6d365,
+    #fda085
+  ); /* Ð“Ñ€Ð°Ð´Ñ–Ñ”Ð½Ñ‚ Ð· Ð¶Ð¾Ð²Ñ‚Ð¾Ð³Ð¾ Ð² Ñ€Ð¾Ð¶ÐµÐ²Ð¸Ð¹ */
+  border: none; /* Ð‘ÐµÐ· Ñ€Ð°Ð¼ÐºÐ¸ */
+  color: white; /* Ð‘Ñ–Ð»Ð¸Ð¹ Ñ‚ÐµÐºÑÑ‚ */
+  padding: 12px 25px; /* Ð’Ð½ÑƒÑ‚Ñ€Ñ–ÑˆÐ½Ñ– Ð²Ñ–Ð´ÑÑ‚ÑƒÐ¿Ð¸ */
+  border-radius: 0 40px 40px 0; /* ÐžÐºÑ€ÑƒÐ³Ð»ÐµÐ½Ð½Ñ Ð»Ð¸ÑˆÐµ ÑÐ¿Ñ€Ð°Ð²Ð° */
+  cursor: pointer; /* ÐšÑƒÑ€ÑÐ¾Ñ€-Ñ€ÑƒÐºÐ° Ð¿Ñ€Ð¸ Ð½Ð°Ð²ÐµÐ´ÐµÐ½Ð½Ñ– */
+  font-weight: 600; /* ÐÐ°Ð¿Ñ–Ð²Ð¶Ð¸Ñ€Ð½Ð¸Ð¹ Ñ‚ÐµÐºÑÑ‚ */
+  transition: 0.5s;
+}
+/* Вміст модалки */
+.modal-content {
+  background: linear-gradient(to right, #84fab0, #8fd3f4);
+  padding: 30px;
+  border-radius: 20px;
+  width: 400px;
+  max-width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.5s ease;
+  position: relative;
+}
+
+/* Кнопка закриття */
+.close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5em;
+  cursor: pointer;
+  color: #333;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.delete-btn {
+  background: linear-gradient(to right, #ff6b6b, #ff4757);
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: 0.3s;
+}
+
+.delete-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(255, 70, 70, 0.5);
+}
+
+.whole-books {
+  background: #dfb7ff;
+  border: none;
+  color: white;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 750px;
+  margin: 0 auto;
+  padding: 15px 0px;
+}
+
+.no-results {
+  position: relative; /* відносне для абсолютного фото */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* текст зверху */
+  text-align: center;
+  min-height: calc(
+    100vh - 80px
+  ); /* висота екрану мінус хедер (якщо хедер 80px) */
+  padding-top: 20px; /* відступ від хедера */
+  background: none; /* фон якщо треба */
+}
+
+.no-results-text {
+  z-index: 1; /* щоб текст був поверх фото */
+  color: #ffffff;
+}
+
+.no-results img {
+  position: absolute; /* притиснути до низу */
+  bottom: 60px;
+  left: 600px;
+  width: 60%;
+  height: auto;
+  object-fit: cover;
+  z-index: 0; /* позаду тексту */
+}
+
+.hidden {
+  display: none;
+}

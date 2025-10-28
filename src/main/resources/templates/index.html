@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="uk" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Каталог бібліотеки</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header">
+      <h1>Каталог бібліотеки</h1>
+      <nav>
+        <a href="/admin" class="btn-2">Адмін</a>
+      </nav>
+    </header>
+
+    <div class="menu-container">
+      <h2>Пошук</h2>
+      <form action="/search" method="get">
+        <input name="author" placeholder="Пошук по автору" />
+        <button type="submit">Пошук</button>
+      </form>
+      <form action="/search" method="get">
+        <input name="title" placeholder="Пошук по назві" />
+        <button type="submit">Пошук</button>
+      </form>
+      <form action="/search" method="get">
+        <input name="keyword" placeholder="Пошук по ключовим словам" />
+        <button type="submit">Пошук</button>
+      </form>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; width: 100%">
+      <img src="/img/hz.png" alt="Ліве фото" style="width: 200px" />
+      <img
+        src="/img/hz2.png"
+        alt="Праве фото"
+        style="width: 200px; margin-right: 40px"
+      />
+    </div>
+
+    <div class="card">
+      <a href="#" class="ui-sticker">Вас може зацікавити<span></span></a>
+
+      <div class="injection-section constructor-section">
+        <div class="section-title">
+          📚 Книги через Constructor Injection
+          <span class="section-badge constructor-badge">Singleton</span>
+        </div>
+        <div class="books-container">
+          <div th:each="book : ${booksConstructor}" class="book-item">
+            <img th:src="@{${book.imagePath}}" th:alt="${book.title}" />
+            <p th:text="${book.title}"></p>
+            <p th:text="${book.author}"></p>
+            <p th:text="${book.keywords}"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="injection-section setter-section">
+        <div class="section-title">
+          📚 Книги через Setter Injection
+          <span class="section-badge setter-badge">Singleton</span>
+        </div>
+        <div class="books-container">
+          <div th:each="book : ${booksSetter}" class="book-item">
+            <img th:src="@{${book.imagePath}}" th:alt="${book.title}" />
+            <p th:text="${book.title}"></p>
+            <p th:text="${book.author}"></p>
+            <p th:text="${book.keywords}"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="injection-section field-section">
+        <div class="section-title">
+          📚 Книги через Field Injection
+          <span class="section-badge field-badge">Prototype</span>
+        </div>
+        <div class="books-container">
+          <div th:each="book : ${booksPrototype}" class="book-item">
+            <img th:src="@{${book.imagePath}}" th:alt="${book.title}" />
+            <p th:text="${book.title}"></p>
+            <p th:text="${book.author}"></p>
+            <p th:text="${book.keywords}"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

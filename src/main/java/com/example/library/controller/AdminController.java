@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 @Controller
 public class AdminController {
@@ -34,6 +35,7 @@ public String adminPage(Model model) {
     public String addBook(@RequestParam String title,
                           @RequestParam String author,
                           @RequestParam String keywords,
+                          @RequestParam(required = false) String rating,
                           @RequestParam(required = false) String imagePath,
                           @RequestParam(required = false) MultipartFile file) throws IOException {
 
@@ -48,7 +50,7 @@ public String adminPage(Model model) {
             finalImagePath = "/img/" + fileName;
         }
 
-        Book newBook = new Book(title, author, keywords, finalImagePath);
+        Book newBook = new Book(title, author, keywords, finalImagePath, Objects.requireNonNullElse(rating, "0+"));
         bookRepository.addBook(newBook);
 
         return "redirect:/admin";
@@ -60,6 +62,7 @@ public String editBook(@RequestParam String oldTitle,
                        @RequestParam String title,
                        @RequestParam String author,
                        @RequestParam String keywords,
+                       @RequestParam(required = false) String rating,
                        @RequestParam(required = false) String imagePath,
                        @RequestParam(required = false) MultipartFile file) throws IOException {
 
@@ -71,6 +74,8 @@ public String editBook(@RequestParam String oldTitle,
         book.setTitle(title);
         book.setAuthor(author);
         book.setKeywords(keywords);
+
+        book.setRating(Objects.requireNonNullElse(rating, "0+"));
 
         if(file != null && !file.isEmpty()) {
             String uploadDir = "src/main/resources/static/img/";

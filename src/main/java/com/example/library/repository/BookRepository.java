@@ -19,11 +19,11 @@ public class BookRepository {
 
     private void initializeData() {
        
-        books.add(new Book("11/22/63", "Стівен Кінг", "фантастика, трилер", "/img/king.jpg"));
-        books.add(new Book("Скажи мені", "Унн Фрейзер", "роман, психологія", "/img/tell_me.jpg"));
-        books.add(new Book("Краще не читай", "Катерина Орловська", "трилер, горор, проза", "/img/book8.jpg"));
-        books.add(new Book("Аутсайдер", "Стівен Кінг", "трилер, горор, фантастика", "/img/book6.jpg"));
-        books.add(new Book("Те, що бенкетує вночі", "Т. Кінгфішер", "горор, проза, детектив", "/img/book4.jpg"));
+        books.add(new Book("11/22/63", "Стівен Кінг", "фантастика, трилер", "/img/king.jpg", "0+"));
+        books.add(new Book("Скажи мені", "Унн Фрейзер", "роман, психологія", "/img/tell_me.jpg", "18+"));
+        books.add(new Book("Краще не читай", "Катерина Орловська", "трилер, горор, проза", "/img/book8.jpg", "0+"));
+        books.add(new Book("Аутсайдер", "Стівен Кінг", "трилер, горор, фантастика", "/img/book6.jpg", "16+"));
+        books.add(new Book("Те, що бенкетує вночі", "Т. Кінгфішер", "горор, проза, детектив", "/img/book4.jpg", "12+"));
     }
 
     public List<Book> findAll() {

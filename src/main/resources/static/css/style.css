@@ -182,6 +182,25 @@ button:hover {
   align-items: flex-start;
 }
 
+.book-title-rating {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.book-item-title {
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.book-item-rating {
+  white-space: nowrap;
+  margin-left: 10px;
+  flex-shrink: 0;
+}
+
 .book-item:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);

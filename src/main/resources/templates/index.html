@@ -45,20 +45,32 @@
     <div class="card">
       <a href="#" class="ui-sticker">Вас може зацікавити<span></span></a>
 
-      <div class="injection-section constructor-section">
-        <div class="section-title">
-          📚 Книги через Constructor Injection
-          <span class="section-badge constructor-badge">Singleton</span>
+        <div class="injection-section constructor-section">
+            <div class="section-title">
+                📚 Книги через Constructor Injection
+                <span class="section-badge constructor-badge">Singleton</span>
+            </div>
+            <div class="books-container">
+                <div th:each="book : ${booksConstructor}" class="book-item">
+                    <img th:src="@{${book.imagePath}}" th:alt="${book.title}"/>
+
+                    <div class="book-title-rating">
+                        <p th:text="${book.title}" class="book-item-title"></p>
+                        <span th:switch="${book.rating}" class="book-item-rating">
+                            <span th:case="'6+'" style="color:blue;">🔵 6+</span>
+                            <span th:case="'12+'" style="color:orange;">🟠 12+</span>
+                            <span th:case="'16+'" style="color:purple;">🟣 16+</span>
+                            <span th:case="'18+'" style="color:red;">🔴 18+</span>
+                            <span th:case="*" style="color:green;">🟢 0+</span>
+                        </span>
+                    </div>
+
+                    <p th:text="${book.author}"></p>
+                    <p th:text="${book.keywords}"></p>
+                </div>
+            </div>
         </div>
-        <div class="books-container">
-          <div th:each="book : ${booksConstructor}" class="book-item">
-            <img th:src="@{${book.imagePath}}" th:alt="${book.title}" />
-            <p th:text="${book.title}"></p>
-            <p th:text="${book.author}"></p>
-            <p th:text="${book.keywords}"></p>
-          </div>
-        </div>
-      </div>
+
     </div>
 
     <div class="card">

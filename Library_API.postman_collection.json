@@ -1,0 +1,605 @@
+{
+	"info": {
+		"_postman_id": "library-api-collection",
+		"name": "Library API",
+		"description": "Postman collection for testing Library Management API.\n\n## Features\n- Books CRUD operations\n- Authors CRUD operations\n- Search endpoints\n- Transactional operations\n\n## Setup\n1. Start PostgreSQL: `docker-compose up -d`\n2. Run Spring Boot: `./mvnw spring-boot:run`\n3. Import this collection into Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "bookId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "authorId",
+			"value": "1",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "Books",
+			"description": "CRUD and search operations for books",
+			"item": [
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books"]
+						},
+						"description": "Retrieves a list of all books in the library with their authors"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/{{bookId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books", "{{bookId}}"]
+						},
+						"description": "Retrieves a specific book by its unique identifier"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book by ID (Not Found)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/999",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books", "999"]
+						},
+						"description": "Test 404 response for non-existent book"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Book",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"The Stand\",\n    \"authorId\": 1,\n    \"keywords\": \"apocalypse, horror, epic\",\n    \"imagePath\": \"/img/thestand.jpg\",\n    \"rating\": \"18+\",\n    \"publicationYear\": 1978,\n    \"isbn\": \"978-0-385-12168-2\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/books",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books"]
+						},
+						"description": "Creates a new book in the library. The book ID is auto-generated."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Book (Validation Error)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"\",\n    \"authorId\": null,\n    \"keywords\": \"test\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/books",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books"]
+						},
+						"description": "Test validation error response - missing required fields"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"11/22/63 - Updated Edition\",\n    \"authorId\": 1,\n    \"keywords\": \"thriller, time travel, history, jfk\",\n    \"imagePath\": \"/img/112263.jpg\",\n    \"rating\": \"16+\",\n    \"publicationYear\": 2011,\n    \"isbn\": \"978-1-4516-2728-2\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/books/{{bookId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books", "{{bookId}}"]
+						},
+						"description": "Updates an existing book with new data"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/{{bookId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books", "{{bookId}}"]
+						},
+						"description": "Deletes a book from the library by its ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Books by Title",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/search/title?title=outsider",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books", "search", "title"],
+							"query": [
+								{
+									"key": "title",
+									"value": "outsider"
+								}
+							]
+						},
+						"description": "Searches for books with titles containing the given text (case-insensitive)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books by Author",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/search/author/{{authorId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books", "search", "author", "{{authorId}}"]
+						},
+						"description": "Retrieves all books written by the specified author"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books by Rating",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/search/rating?rating=18+",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books", "search", "rating"],
+							"query": [
+								{
+									"key": "rating",
+									"value": "18+"
+								}
+							]
+						},
+						"description": "Retrieves all books with the specified age rating"
+					},
+					"response": []
+				},
+				{
+					"name": "Search Books by Keyword",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/search/keyword?keyword=horror",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books", "search", "keyword"],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "horror"
+								}
+							]
+						},
+						"description": "Searches for books with keywords containing the given text"
+					},
+					"response": []
+				},
+				{
+					"name": "Advanced Search",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/search?title=&authorId=1&keyword=horror",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "books", "search"],
+							"query": [
+								{
+									"key": "title",
+									"value": ""
+								},
+								{
+									"key": "authorId",
+									"value": "1"
+								},
+								{
+									"key": "keyword",
+									"value": "horror"
+								}
+							]
+						},
+						"description": "Searches books using multiple optional criteria. All provided criteria must match."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Authors",
+			"description": "CRUD and search operations for authors",
+			"item": [
+				{
+					"name": "Get All Authors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/authors",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors"]
+						},
+						"description": "Retrieves a list of all authors in the library"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Author by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/{{authorId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "{{authorId}}"]
+						},
+						"description": "Retrieves a specific author by their unique identifier"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Author by ID (Not Found)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/999",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "999"]
+						},
+						"description": "Test 404 response for non-existent author"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Author",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"George Orwell\",\n    \"country\": \"UK\",\n    \"birthYear\": 1903\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/authors",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors"]
+						},
+						"description": "Creates a new author in the library. The author ID is auto-generated."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Author (Validation Error)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"\",\n    \"country\": \"UK\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/authors",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors"]
+						},
+						"description": "Test validation error response - missing required name"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Author (Duplicate Name)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Stephen King\",\n    \"country\": \"USA\",\n    \"birthYear\": 1947\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/authors",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors"]
+						},
+						"description": "Test duplicate name constraint violation"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Author",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Stephen Edwin King\",\n    \"country\": \"USA\",\n    \"birthYear\": 1947\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/{{authorId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "{{authorId}}"]
+						},
+						"description": "Updates an existing author with new data"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Author",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/{{authorId}}",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "{{authorId}}"]
+						},
+						"description": "Deletes an author from the library. All books by this author will also be deleted (CASCADE)."
+					},
+					"response": []
+				},
+				{
+					"name": "Search Authors by Name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/search/name?name=King",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "search", "name"],
+							"query": [
+								{
+									"key": "name",
+									"value": "King"
+								}
+							]
+						},
+						"description": "Searches for authors with names containing the given text (case-insensitive)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Authors by Country",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/search/country?country=Ukraine",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "search", "country"],
+							"query": [
+								{
+									"key": "country",
+									"value": "Ukraine"
+								}
+							]
+						},
+						"description": "Retrieves all authors from the specified country"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transactions",
+			"description": "Transactional operations demonstrating ACID properties",
+			"item": [
+				{
+					"name": "Create Author with Books (Success)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"author\": {\n        \"name\": \"J.K. Rowling\",\n        \"country\": \"UK\",\n        \"birthYear\": 1965\n    },\n    \"books\": [\n        {\n            \"title\": \"Harry Potter and the Philosopher's Stone\",\n            \"keywords\": \"fantasy, magic, children\",\n            \"imagePath\": \"/img/hp1.jpg\",\n            \"rating\": \"6+\",\n            \"publicationYear\": 1997,\n            \"isbn\": \"978-0-7475-3269-9\"\n        },\n        {\n            \"title\": \"Harry Potter and the Chamber of Secrets\",\n            \"keywords\": \"fantasy, magic, children\",\n            \"imagePath\": \"/img/hp2.jpg\",\n            \"rating\": \"6+\",\n            \"publicationYear\": 1998,\n            \"isbn\": \"978-0-7475-3849-3\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/with-books",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "with-books"]
+						},
+						"description": "Creates an author along with their books in a single transaction.\n\n**Expected Result:** Author and all books are created successfully.\n\nThis demonstrates a successful transactional operation where all operations complete."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Author with Books (Rollback - Duplicate ISBN)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"author\": {\n        \"name\": \"Test Author for Rollback\",\n        \"country\": \"Test Country\",\n        \"birthYear\": 2000\n    },\n    \"books\": [\n        {\n            \"title\": \"First Test Book\",\n            \"keywords\": \"test\",\n            \"rating\": \"0+\",\n            \"publicationYear\": 2024,\n            \"isbn\": \"978-0-TEST-0001-1\"\n        },\n        {\n            \"title\": \"Second Book with Duplicate ISBN\",\n            \"keywords\": \"test, duplicate\",\n            \"rating\": \"0+\",\n            \"publicationYear\": 2024,\n            \"isbn\": \"978-1-4516-2728-2\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/with-books",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "with-books"]
+						},
+						"description": "Attempts to create an author with books, but the second book has a duplicate ISBN.\n\n**Expected Result:** Transaction ROLLS BACK - neither the author nor any books are created.\n\n**To verify rollback:**\n1. Run this request (should return 400 error)\n2. Check GET /api/authors - \"Test Author for Rollback\" should NOT exist\n3. This demonstrates ACID properties - atomicity ensures all-or-nothing"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Author with Books (Rollback - Duplicate Author)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"author\": {\n        \"name\": \"Stephen King\",\n        \"country\": \"USA\",\n        \"birthYear\": 1947\n    },\n    \"books\": [\n        {\n            \"title\": \"New Book\",\n            \"keywords\": \"test\",\n            \"rating\": \"16+\",\n            \"publicationYear\": 2024,\n            \"isbn\": \"978-0-NEW-0001-1\"\n        }\n    ]\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/with-books",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "with-books"]
+						},
+						"description": "Attempts to create an author that already exists.\n\n**Expected Result:** Error - author with this name already exists."
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer Books Between Authors (Success)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/1/transfer-books/2",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "1", "transfer-books", "2"]
+						},
+						"description": "Transfers all books from author ID 1 (Stephen King) to author ID 2 (Unn Frazer).\n\n**Expected Result:** All books are transferred in a single transaction.\n\n**To verify:**\n1. First check GET /api/books/search/author/1 - should have books\n2. Run this transfer request\n3. Check GET /api/books/search/author/1 - should be empty\n4. Check GET /api/books/search/author/2 - should have the transferred books"
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer Books (Source Author Not Found)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/999/transfer-books/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "999", "transfer-books", "1"]
+						},
+						"description": "Attempts to transfer books from a non-existent author.\n\n**Expected Result:** 404 Not Found - Source author not found"
+					},
+					"response": []
+				},
+				{
+					"name": "Transfer Books (Target Author Not Found)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/authors/1/transfer-books/999",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "authors", "1", "transfer-books", "999"]
+						},
+						"description": "Attempts to transfer books to a non-existent author.\n\n**Expected Result:** 404 Not Found - Target author not found"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "OpenAPI",
+			"description": "OpenAPI documentation endpoints",
+			"item": [
+				{
+					"name": "Get OpenAPI JSON",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api-docs",
+							"host": ["{{baseUrl}}"],
+							"path": ["api-docs"]
+						},
+						"description": "Returns the OpenAPI specification in JSON format"
+					},
+					"response": []
+				},
+				{
+					"name": "Swagger UI",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/swagger-ui.html",
+							"host": ["{{baseUrl}}"],
+							"path": ["swagger-ui.html"]
+						},
+						"description": "Opens Swagger UI for interactive API documentation"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

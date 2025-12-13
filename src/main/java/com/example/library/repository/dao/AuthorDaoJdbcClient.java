@@ -35,7 +35,8 @@ public class AuthorDaoJdbcClient implements AuthorDao {
                 .param("birthYear", author.getBirthYear())
                 .update(keyHolder, "id");
 
-        return keyHolder.getKeyAs(Long.class);
+        Number key = keyHolder.getKey();
+        return key != null ? key.longValue() : null;
     }
 
     @Override

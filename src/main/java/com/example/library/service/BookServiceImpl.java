@@ -11,10 +11,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-/**
- * Implementation of BookServiceApi.
- * Provides business logic for book operations.
- */
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)

@@ -57,7 +57,7 @@ public class BookDaoJdbcTemplate implements BookDao {
         KeyHolder keyHolder = new GeneratedKeyHolder();
 
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
             ps.setString(1, book.getTitle());
             ps.setLong(2, book.getAuthorId());
             ps.setString(3, book.getKeywords());
@@ -68,7 +68,8 @@ public class BookDaoJdbcTemplate implements BookDao {
             return ps;
         }, keyHolder);
 
-        return keyHolder.getKey().longValue();
+        Number key = keyHolder.getKey();
+        return key != null ? key.longValue() : null;
     }
 
     @Override

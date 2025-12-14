@@ -2,6 +2,7 @@ package com.example.library.controller.rest;
 
 import com.example.library.dto.AuthorDTO;
 import com.example.library.dto.BookDTO;
+import com.example.library.dto.BookWithAuthorRequest;
 import com.example.library.service.BookServiceJpa;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -217,13 +218,21 @@ public class BookRestController {
         @ApiResponse(responseCode = "500", description = "Внутрішня помилка сервера (транзакція відкочена)", content = @Content)
     })
     public ResponseEntity<BookDTO> addBookWithNewAuthor(
-        @Parameter(description = "Дані нової книги", required = true)
-        @RequestParam BookDTO bookDTO,
-        @Parameter(description = "Дані нового автора", required = true)
-        @RequestParam AuthorDTO authorDTO
+        @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "Запит з даними книги та автора",
+            required = true,
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = BookWithAuthorRequest.class)
+            )
+        )
+        @RequestBody BookWithAuthorRequest request
     ) {
         try {
-            BookDTO created = bookService.addBookWithNewAuthor(bookDTO, authorDTO);
+            BookDTO created = bookService.addBookWithNewAuthor(
+                request.getBookDTO(),
+                request.getAuthorDTO()
+            );
             return ResponseEntity.status(HttpStatus.CREATED).body(created);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
